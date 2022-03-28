@@ -2,7 +2,7 @@ package config
 
 import "vm1/fu64"
 
-const N = 23
+const N = 24
 const FloatPrintPrecision = 4
 
 var C *fu64.Fu64 = fu64.New(0.987, N*0.0001) // task

@@ -27,8 +27,8 @@ func main() {
 
 	fmt.Printf("Significant digits: %d\n", res.GetSignificantDigits())
 
-	// q := polynomial.DivByMonomialRude(p, config.C)
-	// fmt.Printf("Polynomial divided by (x - c): %s\n", q.ToString())
+	q := polynomial.DivByMonomialRude(p, config.C)
+	fmt.Printf("Polynomial divided by (x - c): %s\n", q.ToString())
 
 	var testVal = []float64{4, -4, 1}
 	var testPrec = []float64{0, 0, 0}

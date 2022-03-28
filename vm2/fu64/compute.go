@@ -5,16 +5,8 @@ import (
 	"math"
 )
 
-type Fu64 struct {
-	Value float64
-	Prec  float64
-}
-
-func New(v, p float64) *Fu64 {
-	return &Fu64{
-		Value: v,
-		Prec:  p,
-	}
+func Abs(f *Fu64) *Fu64 {
+	return New(math.Abs(f.Value), f.Prec)
 }
 
 func Neg(f *Fu64) *Fu64 {
@@ -32,10 +24,8 @@ func Sum(a, b *Fu64) *Fu64 {
 	}
 }
 
-func (f *Fu64) SumSelf(g *Fu64) *Fu64 { // return pointer to self to allow chaining e.g. f.SumSelf().MulSelf()
-	f.Value += g.Value
-	f.Prec += g.Prec
-	return f
+func Sub(a, b *Fu64) *Fu64 {
+	return Sum(a, Neg(b))
 }
 
 func Mul(a, b *Fu64) *Fu64 {
@@ -45,10 +35,19 @@ func Mul(a, b *Fu64) *Fu64 {
 	}
 }
 
-func (f *Fu64) MulSelf(g *Fu64) *Fu64 {
-	f.Value *= g.Value
-	f.Prec = math.Abs(g.Value)*f.Prec + math.Abs(f.Value)*g.Prec
-	return f
+func Div(a, b *Fu64) *Fu64 {
+	return &Fu64{
+		Value: a.Value / b.Value,
+		Prec:  (math.Abs(b.Value)*a.Prec + math.Abs(a.Value)*b.Prec) / math.Pow(b.Value, 2.0),
+	}
+}
+
+func (f *Fu64) ToUIntPow(p uint64) {
+	var i uint64
+	res := New(1, 0)
+	for i = 0; i < p; i++ {
+		res.MulSelf(f)
+	}
 }
 
 func intPow(x int64, n int) int64 {
