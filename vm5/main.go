@@ -8,8 +8,8 @@ import (
 
 func main() {
 	debug, _ := slae.Choleski(
-		util.MakeFu64Matrix(config.MatrixDebug, 3),
-		util.MakeFu64Arr(config.FreeDebug, 3),
+		util.MakeFu64Matrix(config.MatrixDebug0, 3),
+		util.MakeFu64Arr(config.FreeDebug0, 3),
 	)
 	util.PrintFu64Array(debug)
 
@@ -26,7 +26,7 @@ func main() {
 	)
 
 	/*
-		То ли функция то ли калькулятор выдаёт неверное значение.
+		Функция выдаст неверные значения из-за ошибки мантиссы
 		В калькуляторе значения сумм слева: 1, 2, 3.0024..., 4.0017, 4.9696...
 	*/
 }
