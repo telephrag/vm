@@ -19,7 +19,3 @@ func NewFromF64(v float64) *Fu64 {
 func Copy(f *Fu64) *Fu64 {
 	return New(f.Value, f.Prec)
 }
-
-func (f *Fu64) RemoveTail() {
-
-}

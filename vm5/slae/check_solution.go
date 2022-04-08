@@ -5,6 +5,8 @@ import (
 	"fmt"
 	"math/big"
 	"vm5/fu64"
+
+	"github.com/shopspring/decimal"
 )
 
 func truncate(f float64, unit float64) float64 {
@@ -52,20 +54,20 @@ func CheckSolution(m [][]*fu64.Fu64, f []*fu64.Fu64, s []*fu64.Fu64) (bool, erro
 	}
 	fmt.Println()
 
-	// fmt.Println("Checking solution using decimal:")
-	// for i, root := range s {
-	// 	sum := decimal.NewFromFloat(0)
-	// 	r := decimal.NewFromFloat(root.Value)
-	// 	for j := range m {
-	// 		temp := decimal.NewFromFloat(m[i][j].Value)
-	// 		temp = temp.Mul(r)
-	// 		sum = sum.Add(temp)
-	// 	}
+	fmt.Println("Checking solution using decimal:")
+	for i := range m {
+		sum := decimal.NewFromFloat(0)
+		for j := range m {
+			temp := decimal.NewFromFloat(m[i][j].Value)
+			r := decimal.NewFromFloat(s[j].Value)
+			temp = temp.Mul(r)
+			sum = sum.Add(temp)
+		}
 
-	// 	fmt.Println(sum)
-	// }
-	//
-	// fmt.Println()
+		fmt.Println(sum, sum.BigFloat().Prec())
+	}
+
+	fmt.Println()
 
 	return false, nil
 }
