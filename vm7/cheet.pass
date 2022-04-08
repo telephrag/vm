@@ -1,0 +1,56 @@
+program rkut;
+uses Crt;
+Type VEC = array [0..15] of real;
+
+var Y:VEC;
+    x,a,b,h,E,delta,k1,k2,k3,k4,Yh,Yh2: real;
+    i,j,N:integer;
+
+function F(x:real; var Yh:real): real;
+begin
+    F := 2*sqrt(x)+2*Y[i];
+end;
+ 
+BEGIN
+    ClrScr;
+    write('Vvedite tochnost vishisleniy :E=');
+    readln(E);
+    write('Vvedite nachalniy shag :h=');
+    readln(h);
+    write('Vvedite cherez probel konchi otrezkaintegrirovaniya [a,b] :');
+    read(a,b);
+    N:=Round((b-a)/h);
+    write('Vvedite nachalnie ysloviya :Y[0]=');
+    readln(Y[0]);
+    
+    for i:=0 to N-1 do begin
+    repeat
+        x := a+i*h;
+        for j := 1 to 2 do begin
+            if j = 2 then h := h/2;
+            
+            k1 := F(x,y[i]);
+            Yh := y[i]+k1*h/2;
+            k2 := F(x+h/2,Yh);
+            Yh := y[i]+k2*h/2;
+            k3 := F(x+h/2,Yh);
+            Yh := y[i]+k3*h/2;
+            k3 := F(x+h/2,Yh);
+            k4 := F(x+h,Yh);
+            Yh := Y[i]+h*(k1+2*k2+2*k3+k4)/6;
+            
+            if j=2 then Yh2 := Y[i]+(h/2)*(k1+2*k2+2*k3+k4)/6;
+        end;
+         
+        delta := abs(Yh-Yh2)/15;
+        if delta < E then Y[i+1] := Yh2;
+        
+        until delta < E;
+        h:=h*2;
+    end;
+
+    for i := 0 to n do
+        writeln('y',i,'=',y[i]:8:6,';');
+    
+    while not keypressed do;
+END.
